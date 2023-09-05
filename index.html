@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Promises_Async_Await_Coding-Assignment</title>
+  </head>
+  <body>
+    <h3>
+      Q1: Write one example explaining how you can write a callback function.
+    </h3>
+    <h4>
+      <pre>
+        function doTask(taskName, callback) {
+          console.log(`Starting task: ${taskName}`);
+          
+         
+          setTimeout(function () {
+            console.log(`Completed task: ${taskName}`);
+            
+          
+            callback();
+          }, 2000);
+        }
+        
+        
+        function afterTaskCompleted() {
+          console.log("Callback function executed. Task is finished!");
+        }
+        
+        
+        doTask("Task 1", afterTaskCompleted);
+        
+        console.log("Main program continues to execute...");
+        </pre
+      >
+    </h4>
+    <hr />
+    <h3>
+      <pre>
+Q2:- Write a callback function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+
+            Explain callback hell.
+            Numbers
+            1
+            2
+            3
+            4
+            5
+            6
+            7</pre
+      >
+    </h3>
+    <h4>
+      <pre>
+function printNumbersWithDelays() {
+            let number = 1;
+          
+            function printNumber() {
+              if (number <= 7) {
+                console.log(number);
+                number++;
+                setTimeout(printNumber, number * 1000); // Delay in milliseconds
+              }
+            }
+          
+            printNumber();
+          }
+          
+          printNumbersWithDelays();
+          </pre
+      >
+    </h4>
+    <h4>
+      Callback hell, also known as "Pyramid of Doom" or "Callback Pyramid," is a
+      situation that arises in JavaScript when you have multiple nested callback
+      functions.
+    </h4>
+    <h4>
+      <pre>
+function stepOne(callback) {
+            // ...
+            callback(function () {
+              // ...
+              callback(function () {
+                // ...
+                callback(function () {
+                  // ...
+                });
+              });
+            });
+          }
+          </pre
+      >
+    </h4>
+    <hr />
+    <h3>
+      <pre>
+Q3:- Write the promise function to print numbers from 1 to 7, in which 1 should be printed after 1 sec, 2 should be printed after 2 sec, 3 should be printed after 3 sec, and so on. 
+
+            Numbers
+            1
+            2
+            3
+            4
+            5
+            6
+            7</pre
+      >
+    </h3>
+    <h4>
+      <pre>
+function printNumbersWithDelay() {
+                let number = 1;
+              
+                function printNumber() {
+                  return new Promise((resolve) => {
+                    setTimeout(() => {
+                      console.log(number);
+                      resolve();
+                    }, number * 1000); // Delay in milliseconds, multiplying by 1000 to convert to seconds
+                  });
+                }
+              
+                async function printSequentially() {
+                  while (number <= 7) {
+                    await printNumber();
+                    number++;
+                  }
+                }
+              
+                printSequentially();
+              }
+              
+              printNumbersWithDelay();
+              </pre>
+    </h4>
+    <hr>
+    <h3>Q4:- Create a promise function accepting an argument, if yes is passed to the function then it should go to resolved state and print Promise Resolved, and if nothing is passed 
+    then it should go to reject the state and catch the error and print Promise Rejected </h3>
+    <h4><pre>function myPromise(argument) {
+        return new Promise((resolve, reject) => {
+          if (argument === 'yes') {
+            resolve('Promise Resolved');
+          } else {
+            reject('Promise Rejected');
+          }
+        });
+      }
+      
+      // Usage example:
+      myPromise('yes')
+        .then((result) => {
+          console.log(result); 
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
+      
+      myPromise()
+        .then((result) => {
+          console.log(result); 
+        })
+        .catch((error) => {
+          console.error(error); 
+        });
+      </pre></h4>
+      <hr>
+      <h3>Q5:- Create examples to explain callback function</h3>
+      <h4><pre>function fetchData(url, callback) {
+       
+        setTimeout(() => {
+          const data = { id: 1, name: 'John' };
+          callback(data);
+        }, 1000); 
+      }
+      
+      function processData(data) {
+        console.log('Received data:', data);
+      }
+      
+      fetchData('https://example.com/api/data', processData);
+      </pre></h4>
+      <hr>
+      <h3>Q6:- Create examples to explain callback hell function</h3>
+      <h4><pre>getUser(function(user) {
+        getOrders(user.id, function(orders) {
+            getOrderDetails(orders[0].id, function(orderDetails) {
+                showOrderDetails(orderDetails);
+            });
+        });
+    });</pre></h4>
+    <hr>
+    <h3>Q7:- Create examples to explain promises function</h3>
+    <h4><pre>const fetchData = () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const data = { id: 1, name: 'John' };
+            resolve(data);
+          }, 2000);
+        });
+      };
+      
+      fetchData()
+        .then(data => {
+          console.log('Data:', data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      </pre></h4>
+      <hr>
+      <h3>Q8:- Create examples to explain async await function</h3>
+      <h4><pre>
+        function delay(ms) {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+        
+       
+        async function asyncExample() {
+          console.log("Start");
+          await delay(2000); 
+          console.log("End after 2 seconds");
+        }
+        
+        asyncExample();
+        </pre></h4>
+        <hr>
+        <h3>Q9:- Create examples to explain promise.all function</h3>
+        <h4><pre>const p1 = Promise.resolve("Promise P1")
+            const p2 = new Promise((resolve, reject) => {
+                reject("Promise P2"); 
+            });
+            const p3 = new Promise((resolve, reject) => { 
+                resolve("Promise P3");
+            });
+            
+            Promise.all([p1, p2, p3]).then(values => { 
+                console.log(values); 
+            });
+            </pre></h4>
+        <hr>
+        <script src="./script.js"></script>
+  </body>
+</html>
